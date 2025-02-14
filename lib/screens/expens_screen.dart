@@ -6,9 +6,15 @@ class ExpenseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Expense Tracker"),
-      ),
-    );
+        appBar: AppBar(
+          title: const Text("Expense Tracker"),
+        ),
+        body: const Column(
+          children: [
+            Card(
+              child: const Text("This is a card"),
+            ),
+          ],
+        ));
   }
 }

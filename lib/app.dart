@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 final ColorScheme kColorScheme = ColorScheme.fromSeed(
     brightness: Brightness.light,
-    seedColor: const Color.fromARGB(255, 10, 42, 65));
+    seedColor: const Color.fromARGB(255, 62, 105, 245));
 
 final ColorScheme kColorSchemeDark = ColorScheme.fromSeed(
     brightness: Brightness.dark,
-    seedColor: const Color.fromARGB(255, 55, 153, 223));
+    seedColor: const Color.fromARGB(255, 138, 152, 154));
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -18,13 +18,20 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Expense Tracker',
       darkTheme: ThemeData.dark().copyWith(
-        colorScheme: kColorSchemeDark,
-      ),
-      theme: ThemeData(
+          colorScheme: kColorSchemeDark,
+          appBarTheme: const AppBarTheme().copyWith(
+            backgroundColor: kColorSchemeDark.onPrimaryContainer,
+            foregroundColor: kColorSchemeDark.primaryContainer,
+          )),
+      theme: ThemeData().copyWith(
           colorScheme: kColorScheme,
           appBarTheme: const AppBarTheme().copyWith(
-            backgroundColor: kColorScheme.onSecondaryContainer,
-            foregroundColor: kColorScheme.onPrimaryContainer,
+            backgroundColor: kColorScheme.onPrimaryContainer,
+            foregroundColor: kColorScheme.primaryContainer,
+          ),
+          cardTheme: CardTheme().copyWith(
+            color: kColorScheme.secondaryContainer,
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           )),
       home: const ExpenseScreen(),
     );
