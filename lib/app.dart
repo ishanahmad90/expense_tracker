@@ -1,4 +1,4 @@
-import 'package:expense_tracker/screens/expens_screen.dart';
+import 'package:expense_tracker/screens/expense_screen.dart';
 import 'package:flutter/material.dart';
 
 final ColorScheme kColorScheme = ColorScheme.fromSeed(
