@@ -20,7 +20,7 @@ class _ExpensesState extends State<Expenses> {
       category: Category.work,
     ),
     Expense(
-      title: "Cinema",
+      title: "Cinema ",
       amount: 15.99,
       date: DateTime.now(),
       category: Category.leisure,
@@ -43,32 +43,58 @@ class _ExpensesState extends State<Expenses> {
   }
 
   void _removeExpense(Expense expense) {
+    final expenseIndex = _registerdExpenses.indexOf(expense);
     setState(() {
       _registerdExpenses.remove(expense);
     });
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 3),
+        content: Text('Expense Deleted'),
+        action: SnackBarAction(
+            label: 'Undo',
+            onPressed: () {
+              setState(() {
+                _registerdExpenses.insert(expenseIndex, expense);
+              });
+            }),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = const Center(
+      child: Text('No expenses found. Start adding some!'),
+    );
+
+    if (_registerdExpenses.isNotEmpty) {
+      mainContent = ExpensesList(
+        expenses: _registerdExpenses,
+        onRemoveExpenses: _removeExpense,
+      );
+    }
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter ExpensesTracker'),
+        title: Text(
+          'Flutter ExpensesTracker',
+          style: TextStyle(color: Colors.white),
+        ),
         actions: [
           IconButton(
             onPressed: _openAddExpenseOverlay,
-            icon: const Icon(Icons.add),
+            icon: const Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
           )
         ],
       ),
       body: Column(
         children: [
           Text('The Chart'),
-          Expanded(
-            child: ExpensesList(
-              expenses: _registerdExpenses,
-              onRemoveExpenses: _removeExpense,
-            ),
-          ),
+          Expanded(child: mainContent),
         ],
       ),
     );
